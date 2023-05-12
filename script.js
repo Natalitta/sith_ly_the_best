@@ -116,6 +116,22 @@ async function flipCard(e) {
   const { name } = element.dataset;
 }
 
+/* Timer function counts playing time */
+let timer;
+let ele = document.getElementById("timer");
+
+(function(){
+  let sec = 0;
+  timer = setInterval(()=>{
+    ele.innerHTML = "00:"+sec;
+    sec ++;
+  }, 1000) //each one second
+})()
+
+function pause() {
+  clearInterval(timer)
+}
+
 easyMode.addEventListener("click", () => init("easy"));
 mediumMode.addEventListener("click", () => init("medium"));
 hardMode.addEventListener("click", () => init("hard"));

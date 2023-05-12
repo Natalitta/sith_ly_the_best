@@ -123,3 +123,16 @@ body {
   transform: rotateY(180deg);
   background: red;
 }
+
+/* timer */
+#js_timer {
+  text-align: center;
+  font-size: large;
+}
+#timer {
+  width: 120px;
+  height: 30px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 5px;
+}
