@@ -117,20 +117,64 @@ async function flipCard(e) {
 }
 
 /* Timer function counts playing time */
-let timer;
-let ele = document.getElementById("timer");
+let timer = document.getElementById("timer");
+let timerInterval;
+let second = 0,
+  minute = 0;
 
-(function(){
-  let sec = 0;
-  timer = setInterval(()=>{
-    ele.innerHTML = "00:"+sec;
-    sec ++;
-  }, 1000) //each one second
-})()
+function startGame() {
+  clearInterval(timerInterval);
+  second = 0,
+  minute = 0;
+  startTimer()
+};
 
+
+startTimer = () => {
+  // Clear the existing timer, in case of a restart
+  clearInterval(timerInterval);
+      
+  // Set an interval every 1000 ms
+  timerInterval = setInterval(function () {
+
+  // Set the timer text to two digits
+  timer.innerHTML =
+    (minute < 10 ? "0" + minute : minute) +
+    ":" +
+    (second < 10 ? "0" + second : second);
+
+  // Add a new second 
+     second++;
+
+  // Check if the second equals 60 "one minute", add a minute and reset seconds
+  if (second == 60) {
+    minute++;
+    second = 0;
+  }
+  }, 1000);
+};
+
+//Pause the timer
 function pause() {
-  clearInterval(timer)
+
+  clearInterval(timerInterval)
+  
+  let pause = document.getElementById("pause");
+  pause.innerText = "Continue";
+
+  // Add function to freeze cards!!!!!
+
+  pause.addEventListener("click", ()=>{
+  if(pause.innerText === "Continue"){
+      pause.innerText= "Pause";
+      startTimer();        
+    }else{
+        pause.innerText = "Continue";
+        clearInterval(timerInterval);
+    }
+  });
 }
+
 
 easyMode.addEventListener("click", () => init("easy"));
 mediumMode.addEventListener("click", () => init("medium"));
